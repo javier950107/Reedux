@@ -1,14 +1,17 @@
 import React, {useState} from "react"
+import { useSelector } from "react-redux"
 
 import { FormTemplate } from "../templates/FormTemplate"
 import { InfoTemplate } from "../templates/InfoTemplate"
 
 export const HomePage = () =>{
+    
+    const user = useSelector((state) => state.user)
+
     const [info, setInfo] = useState({
         name: '',
         email: ''
     })
-    const [state, setState] = useState([])
 
     const handleChange = (event) =>{
         const name = event.target.name  
@@ -18,7 +21,6 @@ export const HomePage = () =>{
 
     const handleSubmit = (event) =>{
         event.preventDefault()
-        setState([...state, info])
         setInfo({name: '', email: ''})
     }
 
@@ -27,9 +29,11 @@ export const HomePage = () =>{
             <FormTemplate onChange={handleChange} onSubmit={handleSubmit} values={info}/>
             <hr />
             {
-                state.map((data, id) =>(
+
+                <InfoTemplate info={user}/>
+                /*(!loading)? user.map((data, id) =>(
                     <InfoTemplate info={data} key={id}/>
-                ))
+                )) : <p>Loading...</p>*/
             }
         </div>
     )
