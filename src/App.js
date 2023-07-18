@@ -9,11 +9,12 @@ function App() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/users/1")
+    fetch("http://localhost:8001/get")
         .then((response) => response.json())
         .then((data) =>{
             dispatch(addUser(data))
-        } )
+            console.log(data)
+        })
         .catch((error) => console.log(error))
   // eslint-disable-next-line
   }, [])

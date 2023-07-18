@@ -24,13 +24,13 @@ export const HomePage = () =>{
         setInfo({name: '', email: ''})
     }
 
+
     return(
         <div>
             <FormTemplate onChange={handleChange} onSubmit={handleSubmit} values={info}/>
             <hr />
             {
-
-                <InfoTemplate info={user}/>
+                <InfoTemplate info={user} />
                 /*(!loading)? user.map((data, id) =>(
                     <InfoTemplate info={data} key={id}/>
                 )) : <p>Loading...</p>*/
