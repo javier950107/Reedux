@@ -4,8 +4,12 @@ import { useSelector } from "react-redux"
 import { FormTemplate } from "../templates/FormTemplate"
 import { InfoTemplate } from "../templates/InfoTemplate"
 
+import { addUserAsync } from "../../actions/userActions"
+import { useDispatch} from "react-redux"
+
 export const HomePage = () =>{
     
+    const dispatch = useDispatch()
     const user = useSelector((state) => state.user)
 
     const [info, setInfo] = useState({
@@ -22,18 +26,17 @@ export const HomePage = () =>{
     const handleSubmit = (event) =>{
         event.preventDefault()
         setInfo({name: '', email: ''})
+        dispatch(addUserAsync(info))
     }
-
 
     return(
         <div>
             <FormTemplate onChange={handleChange} onSubmit={handleSubmit} values={info}/>
             <hr />
             {
-                <InfoTemplate info={user} />
-                /*(!loading)? user.map((data, id) =>(
+                user.map((data, id) =>(
                     <InfoTemplate info={data} key={id}/>
-                )) : <p>Loading...</p>*/
+                ))
             }
         </div>
     )

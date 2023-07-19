@@ -1,21 +1,34 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { addUserAsync, initUserAsync } from "../actions/userActions";
 
-const initialState = {
-    name: '',
-    email: ''
-}
-
+const initialState = []
 export const userSlice = createSlice({
     name: "user",
     initialState,
     reducers:{
         addUser: (state, action) =>{
-            const {name, email} = action.payload
-            state.name = name
-            state.email = email
+            state.push(action.payload)
+        },
+        initUser: (state, action) =>{
+            return action.payload
         }
+    },
+    extraReducers: (builder) =>{
+        builder
+            .addCase(addUserAsync.pending, (state)=>{
+
+            })
+            .addCase(addUserAsync.fulfilled, (state,action)=>{
+                state.push(action.payload)
+            })
+            .addCase(addUserAsync.rejected, (state)=>{
+
+            })
+            .addCase(initUserAsync.fulfilled,(state,action)=>{
+                return action.payload
+            })
     }
 })
 
-export const {addUser} = userSlice.actions
+export const {initUser , addUser} = userSlice.actions
 export default userSlice.reducer
